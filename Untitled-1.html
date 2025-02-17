@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чек оплаты</title>
+    <link rel="stylesheet" href="sle.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .receipt-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .receipt-box {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: left;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .receipt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mbank-logo {
+            color: #40d47e;
+        }
+
+        .close-btn {
+            color: red;
+            cursor: pointer;
+        }
+
+        .success-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .success-check {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #40d47e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .success-check img {
+            width: 40px;
+            height: 40px;
+        }
+
+        h2 {
+            color: #40d47e;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .subtitle {
+            color: #ccc;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .details div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .payment-desc {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            background: #40d47e;
+            color: #000;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+    </style>
+    <div class="receipt-container">
+        <div class="receipt-box">
+            <div class="receipt-header">
+                <span class="mbank-logo">Mbank</span>
+                <span class="close-btn">X</span>
+            </div>
+            <div class="success-container">
+                <div class="success-check">
+                    <img src="pho.jpg" alt="Success">
+                </div>
+                <h2>Платеж успешно проведен</h2>
+            </div>
+            <h1>- 17,00 C</h1>
+            <p class="subtitle">Тулпар - оплата за проезд</p>
+
+            <div class="details">
+                <div><span><strong>Имя получателя</strong></span><span>CASH OUT ТУЛПАР ОПЛАТА ЗА ПРОЕЗД</span></div>
+                <div><span><strong>Оплачено со счета</strong></span><span>1033020208785171</span></div>
+                <div><span><strong>Дата операции</strong></span><span>13.02.2025, 18:24</span></div>
+                <div><span><strong>Номер квитанции</strong></span><span>P0213122426823</span></div>
+                <div><span><strong>Код транспорта:</strong></span><span>1529</span></div>
+            </div>
+
+            <p class="payment-desc">Оплата услуг. Получатель: Тулпар - оплата за проезд. 1529/17.00 0194ff44-7fc7-7602-9660-a4792372ad4d</p>
+            <p><strong>Сумма:</strong> 17.00 KGS</p>
+
+            <div class="buttons">
+                <button class="action-btn">Отправить</button>
+                <button class="action-btn">Повторить платеж</button>
+                <button class="action-btn">Создать шаблон</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
