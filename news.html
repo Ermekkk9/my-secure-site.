@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицинская больница - Новости</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Пропустить до основного контента</a>
+
+    <header>
+        <h1>Медицинская больница</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="appointment.html">Запись</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="dashboard.html">Панель</a></li>
+                <li><a href="schedule.html">Расписание</a></li>
+            </ul>
+            <select id="language">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section id="news">
+            <h2>Новости</h2>
+            <p>Оставайтесь в курсе последних событий нашей больницы. Узнайте о новых услугах, акциях, медицинских достижениях и обновлениях. Все данные о просмотрах новостей интегрированы с <strong>DHIS2</strong> для анализа интереса пациентов.</p>
+
+            <!-- Фильтр новостей -->
+            <div class="news-filter">
+                <label for="category">Фильтр по категории:</label>
+                <select id="category" onchange="filterNews()">
+                    <option value="all">Все</option>
+                    <option value="services">Новые услуги</option>
+                    <option value="discounts">Акции</option>
+                    <option value="health">Здоровье</option>
+                </select>
+            </div>
+
+            <!-- Список новостей -->
+            <div class="news-list">
+                <article class="news-item" data-category="services">
+                    <img src="https://via.placeholder.com/300x200?text=Диагностика+сердца" alt="Диагностика сердца">
+                    <h3>Новая услуга по диагностике сердца</h3>
+                    <p><strong>Дата:</strong> 2025-03-15</p>
+                    <p>Мы рады объявить о запуске новой услуги — диагностики сердечно-сосудистых заболеваний с использованием современного оборудования, включая эхокардиографию и стресс-тесты. Это позволит выявлять проблемы на ранних стадиях и предотвращать серьезные осложнения.</p>
+                    <button class="read-more" onclick="toggleDetails(this)">Подробнее</button>
+                    <div class="details" style="display: none;">
+                        <p>Услуга доступна в отделении кардиологии с 8:00 до 20:00. Стоимость начинается от 3000 руб. Запишитесь на прием через нашу форму записи!</p>
+                    </div>
+                    <div class="comments">
+                        <h4>Комментарии:</h4>
+                        <ul id="comments-1"></ul>
+                        <form class="comment-form" data-news-id="1">
+                            <input type="text" placeholder="Ваш комментарий" required>
+                            <button type="submit">Отправить</button>
+                        </form>
+                    </div>
+                </article>
+
+                <article class="news-item" data-category="discounts">
+                    <img src="https://via.placeholder.com/300x200?text=Скидки+на+педиатрию" alt="Скидки на педиатрию">
+                    <h3>Скидки 20% на педиатрические услуги</h3>
+                    <p><strong>Дата:</strong> 2025-03-10</p>
+                    <p>До конца марта мы предлагаем скидку 20% на все педиатрические услуги, включая осмотры, вакцинацию и диагностику. Заботьтесь о здоровье своих детей по выгодной цене!</p>
+                    <button class="read-more" onclick="toggleDetails(this)">Подробнее</button>
+                    <div class="details" style="display: none;">
+                        <p>Акция действует до 31 марта 2025 года. Успейте записаться через наш сайт или по телефону +7 (495) 123-45-67.</p>
+                    </div>
+                    <div class="comments">
+                        <h4>Комментарии:</h4>
+                        <ul id="comments-2"></ul>
+                        <form class="comment-form" data-news-id="2">
+                            <input type="text" placeholder="Ваш комментарий" required>
+                            <button type="submit">Отправить</button>
+                        </form>
+                    </div>
+                </article>
+
+                <article class="news-item" data-category="health">
+                    <img src="https://via.placeholder.com/300x200?text=Профилактика" alt="Профилактика">
+                    <h3>Профилактика весенних заболеваний</h3>
+                    <p><strong>Дата:</strong> 2025-03-17</p>
+                    <p>С наступлением весны важно уделить внимание профилактике сезонных заболеваний. Наши специалисты подготовили рекомендации по укреплению иммунитета и защите от аллергий.</p>
+                    <button class="read-more" onclick="toggleDetails(this)">Подробнее</button>
+                    <div class="details" style="display: none;">
+                        <p>Советы включают витаминные комплексы, регулярные прогулки и своевременные осмотры. Запишитесь на консультацию к терапевту!</p>
+                    </div>
+                    <div class="comments">
+                        <h4>Комментарии:</h4>
+                        <ul id="comments-3"></ul>
+                        <form class="comment-form" data-news-id="3">
+                            <input type="text" placeholder="Ваш комментарий" required>
+                            <button type="submit">Отправить</button>
+                        </form>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Интеграция с DHIS2 -->
+            <div class="dhis2-integration">
+                <h3>Аналитика новостей с DHIS2</h3>
+                <p>Мы используем DHIS2 для отслеживания просмотров новостей и анализа интересов пациентов. Это помогает нам адаптировать контент под ваши потребности.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Медицинская больница. Все права защищены.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

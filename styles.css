@@ -1,0 +1,401 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Пропуск для экранных читалок */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+}
+.skip-link:focus {
+    left: 0;
+    z-index: 1000;
+}
+
+/* Шапка */
+header {
+    background-image: url('https://via.placeholder.com/1200x400?text=Больница');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+}
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+header h1, header nav {
+    position: relative;
+    z-index: 1;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+nav ul li a:hover, nav ul li a:focus {
+    color: #cce5ff;
+}
+
+/* Секции */
+section {
+    padding: 40px 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Услуги */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.service {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+.service:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.service img {
+    width: 100%;
+    border-radius: 8px;
+    filter: grayscale(50%);
+    transition: filter 0.3s ease;
+}
+.service img:hover {
+    filter: none;
+}
+.service h3 {
+    margin: 10px 0;
+}
+
+/* Форма записи */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #0056b3;
+}
+button:focus, input:focus, select:focus {
+    outline: 2px solid #007bff;
+}
+
+/* Новости и пользователи */
+#news ul, #dhis2-users ul {
+    list-style: none;
+    padding: 0;
+}
+#news li, #dhis2-users li {
+    margin-bottom: 10px;
+}
+
+/* Таблица данных DHIS2 */
+#dhis2-data table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+#dhis2-data th, #dhis2-data td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+#dhis2-data th {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Контакты */
+#contacts a {
+    color: #007bff;
+    text-decoration: none;
+}
+#contacts a:hover {
+    text-decoration: underline;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Сообщение формы */
+#formMessage {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header {
+        padding: 60px 20px;
+    }
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+    form {
+        max-width: 100%;
+    }
+}
+
+/* Дополнительные стили для appointment.html */
+.cost-estimate {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+.cost-estimate span {
+    font-weight: bold;
+    color: #007bff;
+}
+.appointment-history {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.appointment-history ul {
+    list-style: none;
+    padding: 0;
+}
+.appointment-history li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.dhis2-integration {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+/* Дополнительные стили для news.html */
+.news-filter {
+    margin: 20px 0;
+}
+.news-filter select {
+    padding: 8px;
+    border-radius: 4px;
+}
+.news-list {
+    display: grid;
+    gap: 20px;
+}
+.news-item {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.news-item img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+}
+.news-item h3 {
+    color: #007bff;
+    margin: 10px 0;
+}
+.read-more {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.read-more:hover {
+    background-color: #0056b3;
+}
+.details {
+    margin-top: 10px;
+}
+.comments {
+    margin-top: 20px;
+}
+.comments ul {
+    list-style: none;
+    padding: 0;
+}
+.comments li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.comment-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.comment-form input {
+    flex: 1;
+    padding: 8px;
+}
+.comment-form button {
+    padding: 8px 15px;
+}
+.dhis2-integration {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+
+/* Адаптивность для новостей */
+@media (max-width: 768px) {
+    .news-list {
+        grid-template-columns: 1fr;
+    }
+    .news-item img {
+        max-width: 100%;
+    }
+}
+/* Стили для главной страницы */
+#welcome {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+.cta-button {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.cta-button:hover {
+    background-color: #218838;
+}
+#home ul {
+    list-style: none;
+    padding: 0;
+}
+#home ul li {
+    margin: 10px 0;
+}
+#dhis2-data button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#dhis2-data button:hover {
+    background-color: #0056b3;
+}
+#reviews {
+    text-align: center;
+}
+.review-slider {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.review {
+    display: none;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+.review.active {
+    display: block;
+}
+.review p {
+    margin: 10px 0;
+}
+.slider-controls {
+    margin-top: 20px;
+}
+.slider-controls button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.slider-controls button:hover {
+    background-color: #0056b3;
+}
+#advantages ul {
+    list-style: disc;
+    padding-left: 20px;
+}
