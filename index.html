@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сканирование QR-кода</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .scanner {
+            text-align: center;
+        }
+        .scan-box {
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #40d47e;
+            position: relative;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            background: #40d47e;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        button:hover {
+            background: #35b56e;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .receipt-box {
+            display: none;
+            border: 2px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            margin-top: 20px;
+            background: #fff;
+            color: #000;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanner">
+        <h1>Раздел 1</h1>
+        <p>Наведите камеру на QR или штрих-код</p>
+        <div class="scan-box">
+            <video id="camera" autoplay></video>
+        </div>
+        <div class="buttons">
+            <button onclick="scanQR()">Мой QR</button>
+            <button onclick="document.getElementById('file-input').click()">Из галереи</button>
+            <input type="file" id="file-input" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
+    </div>
+
+    <script>
+        // Запуск камеры
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                document.getElementById("camera").srcObject = stream;
+                scanQRCode(stream);
+            } catch (error) {
+                console.error("Ошибка доступа к камере:", error);
+                alert("Не удалось получить доступ к камере. Пожалуйста, разрешите доступ и обновите страницу.");
+            }
+        }
+
+        // Сканирование QR-кода с камеры
+        function scanQRCode(stream) {
+            const video = document.getElementById("camera");
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            function scan() {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                    if (code) {
+                        const transportCode = extractNumber(code.data);
+                        if (transportCode) {
+                            window.location.href = `payment.html?code=${transportCode}`;
+                        }
+                    }
+                }
+                requestAnimationFrame(scan);
+            }
+            scan();
+        }
+
+        // Обработка загрузки изображения из галереи
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.onload = function () {
+                        const canvas = document.createElement("canvas");
+                        const context = canvas.getContext("2d");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                        const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                        if (code) {
+                            const transportCode = extractNumber(code.data);
+                            if (transportCode) {
+                                window.location.href = `payment.html?code=${transportCode}`;
+                            } else {
+                                alert("QR-код не содержит номера транспорта.");
+                            }
+                        } else {
+                            alert("QR-код не распознан.");
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Извлечение номера из данных QR-кода
+        function extractNumber(data) {
+            const match = data.match(/\d{3,4}/);
+            return match ? match[0] : null;
+        }
+
+        // Запуск камеры при загрузке страницы
+        startCamera();
+    </script>
+</body>
+</html>
