@@ -3,162 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сканирование QR-кода</title>
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.js"></script>
+    <title>VIP Taxi Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        :root {
+            --primary-color: #1e1e2f;
+            --secondary-color: #e9b44c;
+            --accent-color: #d4af37;
+            --text-light: #ffffff;
+            --text-dark: #2c2c2c;
+            --gradient-bg: linear-gradient(135deg, #1e1e2f 0%, #262640 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
             margin: 0;
-            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
         }
-        .scanner {
-            text-align: center;
-        }
-        .scan-box {
-            margin: 20px auto;
-            width: 300px;
-            height: 300px;
-            border: 2px solid #40d47e;
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        body {
+            background-color: #f7f7f7;
+            color: var(--text-dark);
+            min-height: 100vh;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
-        video {
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background-image: url('https://api.placeholder.com/400/320');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            z-index: -1;
         }
-        .buttons {
-            margin-top: 20px;
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            margin: 0 auto;
         }
-        button {
-            background: #40d47e;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 15px auto;
+            max-width: 500px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 35px 20px;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ffffff, #e9b44c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .slogan {
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .header-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            overflow: hidden;
+        }
+        
+        .header-decoration::before {
+            content: '';
+            position: absolute;
+            left: -10%;
+            right: -10%;
+            height: 50px;
+            bottom: -25px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-image i {
+            font-size: 44px;
+            color: var(--secondary-color);
+        }
+        
+        .profile-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .profile-title {
             font-size: 16px;
-            margin: 0 10px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
         }
-        button:hover {
-            background: #35b56e;
+        
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        input[type="file"] {
-            display: none;
+        
+        .profile-rating i {
+            color: var(--secondary-color);
+            font-size: 18px;
+            margin: 0 2px;
         }
-        .receipt-box {
-            display: none;
-            border: 2px solid #ccc;
-            padding: 10px;
-            width: 300px;
-            margin-top: 20px;
-            background: #fff;
-            color: #000;
-            text-align: left;
+        
+        .profile-rating span {
+            margin-left: 8px;
+            font-weight: 500;
+            font-size: 15px;
+            color: #666;
+        }
+        
+        .service-features {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 15px;
+            width: 60px;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .feature span {
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .social-links {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .social-button {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-radius: 16px;
+            background-color: #fff;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .social-button i {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .social-button span {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .whatsapp i { background-color: #25D366; }
+        .telegram i { background-color: #0088cc; }
+        .instagram i { background-color: #E1306C; }
+        .phone i { background-color: #333; }
+        .email i { background-color: #D44638; }
+        .location i { background-color: #4285F4; }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 12px;
+            background: var(--primary-color);
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+        
+        .car-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .car-info i {
+            margin: 0 8px;
+            color: var(--secondary-color);
+        }
+        
+        .cta-button {
+            display: block;
+            margin: 25px auto;
+            padding: 15px 30px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(233, 180, 76, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 180, 76, 0.5);
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        @media (max-width: 480px) {
+            .social-links {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="scanner">
-        <h1>Раздел 1</h1>
-        <p>Наведите камеру на QR или штрих-код</p>
-        <div class="scan-box">
-            <video id="camera" autoplay></video>
-        </div>
-        <div class="buttons">
-            <button onclick="scanQR()">Мой QR</button>
-            <button onclick="document.getElementById('file-input').click()">Из галереи</button>
-            <input type="file" id="file-input" accept="image/*" onchange="handleImageUpload(event)">
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-taxi"></i>
+                    </div>
+                </div>
+                <h1>VIP TAXI SERVICE</h1>
+                <p class="slogan">Ваш персональный комфорт и безопасность</p>
+                <div class="header-decoration"></div>
+            </div>
+            
+            <div class="profile">
+                <div class="profile-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Дуйшонбиев Керимбек</h2>
+                <p class="profile-title">Персональный водитель бизнес-класса</p>
+                
+                <div class="profile-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>5.0 (500+ поездок)</span>
+                </div>
+                
+                <div class="service-features">
+                    <div class="feature">
+                        <i class="fas fa-car"></i>
+                        <span>Бизнес-класс</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Безопасность</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Пунктуальность</span>
+                    </div>
+                </div>
+                
+                <a href="tel:+996551781210" class="cta-button">
+                    <i class="fas fa-phone-alt"></i> Заказать такси
+                </a>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://wa.me/996551781210" class="social-button whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://t.me/Immorttal_01" class="social-button telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://instagram.com/yourusername" class="social-button instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="tel:+996551781210" class="social-button phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Позвонить</span>
+                </a>
+                <a href="mailto:ermekshayloobekov@gmail.com" class="social-button email">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://maps.google.com" class="social-button location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Локация</span>
+                </a>
+            </div>
+            
+            <div class="footer">
+                <p>© 2025 VIP Taxi Service</p>
+                <div class="car-info">
+                    <i class="fas fa-car-side"></i>
+                    <span>Mercedes-Benz E-Class</span>
+                    <i class="fas fa-car-side"></i>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        // Запуск камеры
-        async function startCamera() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-                document.getElementById("camera").srcObject = stream;
-                scanQRCode(stream);
-            } catch (error) {
-                console.error("Ошибка доступа к камере:", error);
-                alert("Не удалось получить доступ к камере. Пожалуйста, разрешите доступ и обновите страницу.");
-            }
-        }
-
-        // Сканирование QR-кода с камеры
-        function scanQRCode(stream) {
-            const video = document.getElementById("camera");
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-
-            function scan() {
-                if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, canvas.width, canvas.height);
-
-                    if (code) {
-                        const transportCode = extractNumber(code.data);
-                        if (transportCode) {
-                            window.location.href = `payment.html?code=${transportCode}`;
-                        }
-                    }
-                }
-                requestAnimationFrame(scan);
-            }
-            scan();
-        }
-
-        // Обработка загрузки изображения из галереи
-        function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = new Image();
-                    img.onload = function () {
-                        const canvas = document.createElement("canvas");
-                        const context = canvas.getContext("2d");
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                        const code = jsQR(imageData.data, canvas.width, canvas.height);
-
-                        if (code) {
-                            const transportCode = extractNumber(code.data);
-                            if (transportCode) {
-                                window.location.href = `payment.html?code=${transportCode}`;
-                            } else {
-                                alert("QR-код не содержит номера транспорта.");
-                            }
-                        } else {
-                            alert("QR-код не распознан.");
-                        }
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Извлечение номера из данных QR-кода
-        function extractNumber(data) {
-            const match = data.match(/\d{3,4}/);
-            return match ? match[0] : null;
-        }
-
-        // Запуск камеры при загрузке страницы
-        startCamera();
-    </script>
 </body>
 </html>
