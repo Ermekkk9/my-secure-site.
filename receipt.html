@@ -3,231 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чек оплаты</title>
+    <title>VIP Taxi Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .receipt-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .receipt-box {
-            background: #1a1a1a;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            text-align: left;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .receipt-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .mbank-logo {
-            color: #40d47e;
-        }
-
-        .close-btn {
-            color: red;
-            cursor: pointer;
-        }
-
-        .success-check {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 15px auto;
-        }
-
-        .round-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        h2 {
-            color: #40d47e;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .subtitle {
-            color: #ccc;
-            text-align: center;
-        }
-
-        .details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .details div {
-            display: flex;
-            justify-content: space-between;
+        :root {
+            --primary-color: #1e1e2f;
+            --secondary-color: #e9b44c;
+            --accent-color: #d4af37;
+            --text-light: #ffffff;
+            --text-dark: #2c2c2c;
+            --gradient-bg: linear-gradient(135deg, #1e1e2f 0%, #262640 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
         
-
-        .payment-desc {
-            font-size: 12px;
-            color: #999;
-            margin-top: 10px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Arial', sans-serif;
         }
-
-        .buttons {
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        body {
+            background-color: #f7f7f7;
+            color: var(--text-dark);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://api.placeholder.com/400/320');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 15px auto;
+            max-width: 500px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 35px 20px;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
             display: flex;
-            justify-content: space-around;
-            margin-top: 15px;
+            justify-content: center;
+            align-items: center;
         }
-
-        .action-btn {
-            background: #40d47e;
-            color: #000;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo i {
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ffffff, #e9b44c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .slogan {
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        .header-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            overflow: hidden;
+        }
+        
+        .header-decoration::before {
+            content: '';
+            position: absolute;
+            left: -10%;
+            right: -10%;
+            height: 50px;
+            bottom: -25px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .profile-image i {
+            font-size: 44px;
+            color: var(--secondary-color);
+        }
+        
+        .profile-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .profile-title {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-rating i {
+            color: var(--secondary-color);
+            font-size: 18px;
+            margin: 0 2px;
+        }
+        
+        .profile-rating span {
+            margin-left: 8px;
+            font-weight: 500;
+            font-size: 15px;
+            color: #666;
+        }
+        
+        .service-features {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 15px;
+            width: 60px;
+        }
+        
+        .feature i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .feature span {
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .social-links {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .social-button {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-radius: 16px;
+            background-color: #fff;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .social-button i {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 16px;
+            color: white;
+        }
+        
+        .social-button span {
             font-size: 14px;
+            font-weight: 600;
         }
-        .buttons {
-    position: absolute; /* Кнопки будут за пределами квадрата */
-    bottom: 105px; /* Смещение вниз */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 80px; /* Расстояние между кнопками */
-}
-
-.action-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.icon-circle {
-    width: 40px; /* Размер круга */
-    height: 40px;
-    background-color: #40d47e; /* Цвет фона иконки */
-    border-radius: 50%; /* Делаем круг */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Добавляем тень */
-}
-
-.icon-circle img {
-    width: 24px; /* Размер иконки внутри круга */
-    height: 24px;
-}
-
-.action-text {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #fff;
-}
-
+        
+        .whatsapp i { background-color: #25D366; }
+        .telegram i { background-color: #0088cc; }
+        .instagram i { background-color: #E1306C; }
+        .phone i { background-color: #333; }
+        .email i { background-color: #D44638; }
+        .location i { background-color: #4285F4; }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 12px;
+            background: var(--primary-color);
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+        }
+        
+        .car-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .car-info i {
+            margin: 0 8px;
+            color: var(--secondary-color);
+        }
+        
+        .cta-button {
+            display: block;
+            margin: 25px auto;
+            padding: 15px 30px;
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(233, 180, 76, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 180, 76, 0.5);
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        @media (max-width: 480px) {
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="receipt-container">
-        <div class="receipt-box">
-            <div class="receipt-header">
-                <span class="mbank-logo">Mbank</span>
-                <span class="close-btn">X</span>
-            </div>
-            <div class="success-check">
-                <img src="zon.png" alt="Галочка" class="round-image">
-            </div>
-            <h2>Платеж успешно проведен</h2>
-            <h1>- 17,00 C</h1>
-            <p class="subtitle">Тулпар - оплата за проезд</p>
-            <p class="payment-desc">-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</p>
-            <div class="details">
-                <div><span><strong>Имя получателя</strong></span><span>CASH OUT ТУЛПАР ОПЛАТА ЗА ПРОЕЗД</span></div>
-                <div><span><strong>Оплачено со счета</strong></span><span>1033020208785171</span></div>
-                <div><span><strong>Дата операции</strong></span><span id="operation-date"></span></div>
-                <div><span><strong>Номер квитанции</strong></span><span>P0213122426823</span></div>
-                <div><span><strong>Код транспорта:</strong></span><span id="transport-code"></span></div>
-            </div>
-            <p class="payment-desc">-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</p>
-            <p class="payment-desc">Оплата услуг. Получатель: Тулпар - оплата за проезд./17.00 0194ff44-7fc7-7602-9660-a4792372ad4d <br>
-            Сумма: 17.00 KGS </p>
-
-            <div class="buttons">
-                <button class="action-btn">
-                    <div class="icon-circle">
-                        <img src="q1.png" alt="Отправить">
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="fas fa-taxi"></i>
                     </div>
-                    <span class="action-text">Отправить</span>
-                </button>
-                <button class="action-btn">
-                    <div class="icon-circle">
-                        <img src="q2.png" alt="Повторить платеж">
+                </div>
+                <h1>VIP TAXI SERVICE</h1>
+                <p class="slogan">Ваш персональный комфорт и безопасность</p>
+                <div class="header-decoration"></div>
+            </div>
+            
+            <div class="profile">
+                <div class="profile-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Дуйшонбиев Керимбек</h2>
+                <p class="profile-title">Персональный водитель бизнес-класса</p>
+                
+                <div class="profile-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>5.0 (500+ поездок)</span>
+                </div>
+                
+                <div class="service-features">
+                    <div class="feature">
+                        <i class="fas fa-car"></i>
+                        <span>Бизнес-класс</span>
                     </div>
-                    <span class="action-text">Повторить платеж</span>
-                </button>
-                <button class="action-btn">
-                    <div class="icon-circle">
-                        <img src="q3.png" alt="Создать шаблон">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Безопасность</span>
                     </div>
-                    <span class="action-text">Создать шаблон</span>
-                </button>
-            </div>            
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Пунктуальность</span>
+                    </div>
+                </div>
+                
+                <a href="tel:+996551781210" class="cta-button">
+                    <i class="fas fa-phone-alt"></i> Заказать такси
+                </a>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://wa.me/996551781210" class="social-button whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://t.me/Immorttal_01" class="social-button telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://instagram.com/yourusername" class="social-button instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="tel:+996551781210" class="social-button phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Позвонить</span>
+                </a>
+                <a href="mailto:ermekshayloobekov@gmail.com" class="social-button email">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://maps.google.com" class="social-button location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Локация</span>
+                </a>
+            </div>
+            
+            <div class="footer">
+                <p>© 2025 VIP Taxi Service</p>
+                <div class="car-info">
+                    <i class="fas fa-car-side"></i>
+                    <span>Mercedes-Benz E-Class</span>
+                    <i class="fas fa-car-side"></i>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        // Функция для форматирования даты и времени
-        function formatDate(date) {
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            return `${day}.${month}.${year}, ${hours}:${minutes}`;
-        }
-
-        // Установка текущей даты и времени
-        const operationDateElement = document.getElementById('operation-date');
-        operationDateElement.textContent = formatDate(new Date());
-
-        const params = new URLSearchParams(window.location.search);
-        const transportCode = params.get("code");
-        document.getElementById("transport-code").innerText = transportCode;
-
-        function pay() {
-            const now = new Date().toLocaleString();
-            window.location.href = `receipt.html?code=${transportCode}&time=${encodeURIComponent(now)}`;
-        }
-    </script>
 </body>
 </html>
