@@ -1,425 +1,452 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Taxi Service</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #1e1e2f;
-            --secondary-color: #e9b44c;
-            --accent-color: #d4af37;
-            --text-light: #ffffff;
-            --text-dark: #2c2c2c;
-            --gradient-bg: linear-gradient(135deg, #1e1e2f 0%, #262640 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', 'Arial', sans-serif;
-        }
-        
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-        
-        body {
-            background-color: #f7f7f7;
-            color: var(--text-dark);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://api.placeholder.com/400/320');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.12;
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 100%;
-            padding: 20px;
-            margin: 0 auto;
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            margin: 15px auto;
-            max-width: 500px;
-        }
-        
-        .header {
-            text-align: center;
-            padding: 35px 20px;
-            background: var(--gradient-bg);
-            color: var(--text-light);
-            position: relative;
-        }
-        
-        .logo-container {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .logo {
-            width: 70px;
-            height: 70px;
-            background-color: var(--secondary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .logo i {
-            font-size: 32px;
-            color: var(--primary-color);
-        }
-        
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to right, #ffffff, #e9b44c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .slogan {
-            font-size: 15px;
-            font-weight: 400;
-            margin-bottom: 10px;
-            color: rgba(255, 255, 255, 0.85);
-        }
-        
-        .header-decoration {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 25px;
-            overflow: hidden;
-        }
-        
-        .header-decoration::before {
-            content: '';
-            position: absolute;
-            left: -10%;
-            right: -10%;
-            height: 50px;
-            bottom: -25px;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-        }
-        
-        .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 20px;
-            background: var(--card-bg);
-            position: relative;
-        }
-        
-        .profile-image {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 4px solid var(--secondary-color);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            position: relative;
-            background-color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .profile-image i {
-            font-size: 44px;
-            color: var(--secondary-color);
-        }
-        
-        .profile-name {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-        }
-        
-        .profile-title {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .profile-rating {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .profile-rating i {
-            color: var(--secondary-color);
-            font-size: 18px;
-            margin: 0 2px;
-        }
-        
-        .profile-rating span {
-            margin-left: 8px;
-            font-weight: 500;
-            font-size: 15px;
-            color: #666;
-        }
-        
-        .service-features {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .feature {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0 15px;
-            width: 60px;
-        }
-        
-        .feature i {
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 8px;
-        }
-        
-        .feature span {
-            font-size: 12px;
-            text-align: center;
-            color: #666;
-        }
-        
-        .social-links {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-        }
-        
-        .social-button {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            border-radius: 16px;
-            background-color: #fff;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-weight: 500;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .social-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .social-button i {
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin-right: 12px;
-            font-size: 16px;
-            color: white;
-        }
-        
-        .social-button span {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .whatsapp i { background-color: #25D366; }
-        .telegram i { background-color: #0088cc; }
-        .instagram i { background-color: #E1306C; }
-        .phone i { background-color: #333; }
-        .email i { background-color: #D44638; }
-        .location i { background-color: #4285F4; }
-        
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #888;
-            font-size: 12px;
-            background: var(--primary-color);
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: 0 0 20px 20px;
-        }
-        
-        .footer p {
-            margin-bottom: 10px;
-        }
-        
-        .car-info {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-            font-size: 12px;
-        }
-        
-        .car-info i {
-            margin: 0 8px;
-            color: var(--secondary-color);
-        }
-        
-        .cta-button {
-            display: block;
-            margin: 25px auto;
-            padding: 15px 30px;
-            background: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(233, 180, 76, 0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(233, 180, 76, 0.5);
-        }
-        
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
-            margin: 10px 0;
-            width: 100%;
-        }
-        
-        @media (max-width: 480px) {
-            .social-links {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101110">
+  <meta name="description"
+        content="Керимбек Дуйшонбиев — персональный водитель. VIP-трансфер по Кыргызстану на Kia Carnival Hi-Limousine. Контакты и маршруты.">
+  <title>Дуйшонбиев Керимбек — персональный водитель</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101110;
+      --surface: #191a18;
+      --text: #f5f1e9;
+      --muted: #b7b7ad;
+      --gold: #dec28c;
+      --line: #ffffff18;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 5px;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: auto;
+      padding: 0 36px;
+    }
+
+    .header {
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .signature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .monogram {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #dec28c60;
+      border-radius: 50%;
+      color: var(--gold);
+      font: 23px Georgia, serif;
+    }
+
+    .signature span:last-child {
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .languages {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: center;
+      padding: 48px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--gold);
+      font-size: 11px;
+      line-height: 1.6;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font: normal clamp(38px, 4.5vw, 58px)/1.08 Georgia, serif;
+      letter-spacing: -1.5px;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--gold);
+    }
+
+    .role {
+      margin: 22px 0 0;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .tagline {
+      margin: 9px 0 30px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 10px;
+    }
+
+    .button {
+      min-height: 54px;
+      padding: 15px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .18s ease, border-color .18s ease;
+    }
+
+    .button-primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #19170f;
+    }
+
+    .button-primary:hover {
+      background: #edd5a6;
+      border-color: #edd5a6;
+    }
+
+    .button-secondary:hover {
+      background: var(--surface);
+      border-color: #dec28c70;
+    }
+
+    .phone-note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .photo {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #262622;
+      border: 1px solid var(--line);
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 65%;
+    }
+
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 45% 0 0;
+      background: linear-gradient(transparent, #000000c9);
+      pointer-events: none;
+    }
+
+    .photo figcaption {
+      position: absolute;
+      z-index: 1;
+      left: 26px;
+      bottom: 26px;
+      right: 26px;
+    }
+
+    .car-label {
+      display: block;
+      margin-bottom: 7px;
+      color: #e9dcc3;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .car-name {
+      font: 28px Georgia, serif;
+      color: #fff7e9;
+    }
+
+    .routes {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 20px;
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .section-title {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .route-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .route-list li {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .route-list li::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .route-note {
+      margin: 12px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0 32px;
+    }
+
+    .footer-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 22px;
+    }
+
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      gap: 8px;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .socials a:hover { color: var(--gold); }
+    .arrow { color: var(--gold); }
+
+    @media (max-width: 760px) {
+      .page { max-width: 520px; padding: 0 22px; }
+
+      .header { min-height: 76px; }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+        padding: 22px 0 30px;
+      }
+
+      .photo {
+        order: -1;
+        width: 100%;
+        aspect-ratio: 1.22;
+        border-radius: 16px;
+      }
+
+      .photo img { object-position: center 66%; }
+
+      .photo figcaption {
+        left: 20px;
+        bottom: 20px;
+      }
+
+      .car-name { font-size: 25px; }
+
+      .intro { width: 100%; }
+
+      .eyebrow {
+        font-size: 10px;
+        margin-bottom: 14px;
+        letter-spacing: 1.7px;
+      }
+
+      h1 {
+        font-size: clamp(34px, 9vw, 46px);
+        letter-spacing: -1px;
+      }
+
+      .role { margin-top: 18px; }
+      .tagline { margin-bottom: 23px; }
+
+      .routes {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 24px 0;
+      }
+
+      .route-list { gap: 7px 17px; }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <div class="logo-container">
-                    <div class="logo">
-                        <i class="fas fa-taxi"></i>
-                    </div>
-                </div>
-                <h1>VIP TAXI SERVICE</h1>
-                <p class="slogan">Ваш персональный комфорт и безопасность</p>
-                <div class="header-decoration"></div>
-            </div>
-            
-            <div class="profile">
-                <div class="profile-image">
-                    <i class="fas fa-user"></i>
-                </div>
-                <h2 class="profile-name">Дуйшонбиев Керимбек</h2>
-                <p class="profile-title">Персональный водитель бизнес-класса</p>
-                
-                <div class="profile-rating">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <span>5.0 (500+ поездок)</span>
-                </div>
-                
-                <div class="service-features">
-                    <div class="feature">
-                        <i class="fas fa-car"></i>
-                        <span>Бизнес-класс</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Безопасность</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-clock"></i>
-                        <span>Пунктуальность</span>
-                    </div>
-                </div>
-                
-                <a href="tel:+996551781210" class="cta-button">
-                    <i class="fas fa-phone-alt"></i> Заказать такси
-                </a>
-            </div>
-            
-            <div class="social-links">
-                <a href="https://wa.me/996551781210" class="social-button whatsapp">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="https://t.me/Kerimbek001" class="social-button telegram">
-                    <i class="fab fa-telegram-plane"></i>
-                    <span>Telegram</span>
-                </a>
-                <a href="https://instagram.com/kerimbekshailoobekov" class="social-button instagram">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
-                <a href="tel:+996551781210" class="social-button phone">
-                    <i class="fas fa-phone-alt"></i>
-                    <span>Позвонить</span>
-                </a>
-                <a href="mailto:kerimbeksajloobekov816@gmail.com" class="social-button email">
-                    <i class="fas fa-envelope"></i>
-                    <span>Email</span>
-                </a>
-                <a href="https://maps.app.goo.gl/rRhNs2nDjr6uS6tE8" class="social-button location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Локация</span>
-                </a>
-            </div>
-            
-            <div class="footer">
-                <p>© 2025 VIP Taxi Service</p>
-                <div class="car-info">
-                    <i class="fas fa-car-side"></i>
-                    <span>Kia Carnival Hi-Limousine</span>
-                    <i class="fas fa-car-side"></i>
-                </div>
-            </div>
+  <div class="page">
+    <header class="header">
+      <div class="signature">
+        <span class="monogram" aria-hidden="true">К</span>
+        <span>Персональный<br>трансфер</span>
+      </div>
+      <div class="languages">Кыргызча · Русский</div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="name">
+        <div class="intro">
+          <p class="eyebrow">VIP-трансфер по Кыргызстану</p>
+
+          <h1 id="name">Дуйшонбиев <span>Керимбек</span></h1>
+
+          <p class="role">Персональный водитель</p>
+          <p class="tagline">Комфорт в каждой поездке.</p>
+
+          <div class="actions">
+            <a
+              class="button button-primary"
+              href="https://wa.me/996551781210?text=Здравствуйте!%20Хочу%20уточнить%20стоимость%20трансфера."
+              target="_blank"
+              rel="noopener noreferrer">
+              WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+
+            <a class="button button-secondary" href="tel:+996551781210">
+              Позвонить
+            </a>
+          </div>
+
+          <p class="phone-note">+996 551 781 210</p>
         </div>
-    </div>
+
+        <figure class="photo">
+          <img
+            src="car.jpg"
+            alt="Чёрный Kia Carnival Hi-Limousine Керимбека на закате"
+            fetchpriority="high"
+            decoding="async">
+          <figcaption>
+            <span class="car-label">Hi-Limousine</span>
+            <span class="car-name">Kia Carnival</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="routes" aria-labelledby="routes-title">
+        <h2 class="section-title" id="routes-title">Маршруты</h2>
+        <div>
+          <ul class="route-list">
+            <li>Бишкек</li>
+            <li>Аэропорт Манас</li>
+            <li>Иссык-Куль</li>
+            <li>Чолпон-Ата</li>
+            <li>Каракол</li>
+          </ul>
+          <p class="route-note">
+            Другие направления и стоимость — по договорённости.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-note">На связи напрямую, без посредников.</p>
+      <nav class="socials" aria-label="Социальные сети">
+        <a
+          href="https://t.me/Kerimbek001"
+          target="_blank"
+          rel="noopener noreferrer">
+          Telegram <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a
+          href="https://www.instagram.com/kerimbekshailoobekov/"
+          target="_blank"
+          rel="noopener noreferrer">
+          Instagram <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </footer>
+  </div>
 </body>
 </html>
